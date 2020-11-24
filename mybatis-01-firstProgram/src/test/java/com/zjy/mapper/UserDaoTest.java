@@ -5,6 +5,7 @@ import com.zjy.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UserDaoTest {
@@ -61,6 +62,27 @@ public class UserDaoTest {
         //提交事务
         sqlSession.commit();
         List<User> userList = mapper.getUserList();
+        for (User u :userList) System.out.println(u);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testMap添加用户() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        mapper.addUser(new HashMap<String, Object>() {{put("userName", "双儿"); put("passWord", "123123");}});
+        //提交事务
+        sqlSession.commit();
+        List<User> userList = mapper.getUserList();
+        for (User u :userList) System.out.println(u);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testMap模糊查询() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<User> userList = mapper.getUserLike("小%");
         for (User u :userList) System.out.println(u);
         sqlSession.close();
     }

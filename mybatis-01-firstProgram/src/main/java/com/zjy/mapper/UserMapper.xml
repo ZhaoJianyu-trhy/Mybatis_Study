@@ -5,6 +5,10 @@
         insert into user (id, name, pwd) values (#{id}, #{name}, #{pwd});
     </insert>
 
+    <insert id="addUser">
+        insert into user (name, pwd) values (#{userName}, #{passWord});
+    </insert>
+
     <update id="updateUser" parameterType="com.zjy.pojo.User">
         update user set name = #{name}, pwd = #{pwd} where id = #{id};
     </update>
@@ -18,5 +22,9 @@
     </select>
     <select id="getUserById" parameterType="int" resultType="com.zjy.pojo.User">
         select * from user where id = #{id};
+    </select>
+
+    <select id="getUserLike" resultType="com.zjy.pojo.User">
+        select * from user where name like #{value}
     </select>
 </mapper>
