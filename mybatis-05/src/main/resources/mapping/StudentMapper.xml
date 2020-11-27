@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjy.mapper.StudentMapper">
+
+    <resultMap id="StudentAll" type="student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--        复杂的属性需要单独处理
+            对象：association
+            集合：collection
+        -->
+        <association property="teacher" column="tid" javaType="teacher" select="getTeacher"/>
+    </resultMap>
+
+    <resultMap id="StudentJoin" type="student">
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <association property="teacher" javaType="teacher">
+            <result property="name" column="tname"/>
+        </association>
+    </resultMap>
+    
+    <select id="getTeacher" resultType="teacher">
+        select * from teacher where id = #{tid};
+    </select>
+
+    <select id="getStudent" resultType="com.zjy.pojo.Student">
+        select * from student where id = #{id};
+    </select>
+    <select id="getStudents" resultMap="StudentAll">
+        select * from student;
+    </select>
+
+    <select id="getStudentJoin" resultMap="StudentJoin">
+        select s.id sid,s.name sname,t.name tname
+        from student s,teacher t
+        where s.tid = t.id
+    </select>
+
+</mapper>

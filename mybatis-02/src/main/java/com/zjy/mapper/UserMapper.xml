@@ -17,7 +17,7 @@
         delete from user where id = #{idd};
     </delete>
 
-    <select id="getUserList" resultType="com.zjy.pojo.User">
+    <select id="getUserList" resultType="uu">
         select * from user;
     </select>
     <select id="getUserById" parameterType="int" resultType="com.zjy.pojo.User">
@@ -26,5 +26,9 @@
 
     <select id="getUserLike" resultType="com.zjy.pojo.User">
         select * from user where name like #{value}
+    </select>
+
+    <select id="getUserByLimit" parameterType="map" resultType="uu">
+        select * from user limit #{startIndex}, #{pageSize};
     </select>
 </mapper>

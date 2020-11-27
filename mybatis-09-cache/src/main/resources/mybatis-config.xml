@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--    引入外部配置文件-->
+    <properties resource="db.properties"/>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--            默认也是开启的-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <!--    给具体的实体类取别名-->
+    <!--    <typeAliases>-->
+    <!--        <typeAlias type="com.zjy.pojo.User" alias="User"/>-->
+    <!--    </typeAliases>-->
+
+    <!--    扫描包-->
+
+    <typeAliases>
+        <package name="com.zjy.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--    <mappers>-->
+    <!--&lt;!&ndash;        <mapper resource="com/zjy/mapper/UserMapper.xml"/>&ndash;&gt;-->
+    <!--        <mapper class="com.zjy.MapperTest.UserMapper"/>-->
+    <!--    </mappers>-->
+    <mappers>
+        <mapper resource="mapping/UserMapper.xml"/>
+    </mappers>
+
+</configuration>
